@@ -9,14 +9,30 @@
 
 <body>
   <div id="app">
-    <button></button>
+    <!-- v-on:click="increment()" 해도 됨-->
+    <button v-on:click="increment">
+      {{ number }}
+    </button>
   </div>
 
   <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
   <script>
-    const { createApp } = Vue
+    const { createApp, ref } = Vue
 
-    const app = createApp({})
+    const app = createApp({
+      setup() {
+        const number = ref(0)
+        const increment = function () {
+          // number++ 하면 객체에다가 ++하는 거라서 될 리가 없음
+          // 꼭 .value 하는 것 잊지 말자
+          number.value++
+        }
+        return {
+          number,
+          increment,
+        }
+      }
+    })
 
     app.mount('#app')
   </script>

@@ -9,9 +9,46 @@
 
 <body>
   <div id="app">
+    <h1>{{ message }}</h1>
+    <button v-on:click="countNumber++">
+      카운트 넘버: {{ countNumber }}
+    </button>
   </div>
 
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
   <script>
+    // 구조 분해 할당 예시
+    // const Vue = {
+    //   title: 'abc',
+    //   createApp: function () {
+    //     console.log(abcd)
+    //   }
+    // }
+
+    // const createApp = Vue.createApp
+    // const title = Vue.title
+
+
+    // 구조 분해 할당 한 것임
+    // const createApp = Vue.createApp 이거랑 같은 말임
+    const { createApp, ref } = Vue
+
+    const app = createApp({
+      setup() {
+        const message = ref('Hello vue!')
+        const countNumber = ref(0)
+        return {
+          // message: message 와 같은 말임. 단축 속성 사용한 것
+          message,
+          countNumber,
+        }
+      }
+    })
+
+    app.mount('#app')
+
+
+
   </script>
 </body>
 

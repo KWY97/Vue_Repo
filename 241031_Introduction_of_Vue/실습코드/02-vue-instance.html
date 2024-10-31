@@ -9,9 +9,26 @@
 
 <body>
   <div id="app">
+    <h1>{{ message }}</h1>
   </div>
 
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
   <script>
+    const { createApp, ref } = Vue
+
+    const app = createApp({
+      setup() {
+        const message = ref('hello')
+        console.log(message) // ref 객체
+        console.log(message.value) // 'hello'
+        return {
+          message
+        }
+      }
+    })
+
+    app.mount('#app')
+
   </script>
 </body>
 
