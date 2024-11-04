@@ -11,11 +11,12 @@
 
 <body>
   <div id="app">
-    <p>{{ }}</p>
-    <input>
+    <!-- 두 개 다 같은 말 -->
+    <p>{{ inputText1 }}</p>
+    <input :value="inputText1" @input="onInput">
 
-    <p>{{ }}</p>
-    <input>
+    <p>{{ inputText2 }}</p>
+    <input v-model="inputText2">
 
   </div>
 
@@ -25,7 +26,17 @@
 
     const app = createApp({
       setup() {
-        return {}
+        const inputText1 = ref('')
+        const onInput = function (event) {
+          inputText1.value = event.currentTarget.value
+        }
+        const inputText2 = ref('')
+        
+        return {
+          inputText1,
+          onInput,
+          inputText2,
+        }
       }
     })
 

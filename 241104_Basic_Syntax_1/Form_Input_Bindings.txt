@@ -1,0 +1,18 @@
+<Form Input Bindings>
+ - form을 처리할 때 사용자가 input에 입력하는 값을 실시간으로 
+   JavaScript 상태에 동기화해야 하는 경우 (양방향 바인딩)
+
+ - 양방향 바인딩 방법
+  1. v-bind와 v-on을 함께 사용 (62p ~ 63p, 실습코드 06)
+  2. v-model 사용 (65p ~ 75p)
+   - form input 요소 또는 컴포넌트에서 양방향 바인딩을 만듬
+   -> IME가 필요한 언어(한국어, 중국어, 일본어 등)의 경우 v-model이 제대로 업데이트 되지 않음
+   -> 해당 언어에 대해 올바르게 응답하려면 v-bind와 v-on 방법을 사용해야함
+
+
+<v-model 활용> (실습코드 07)
+ - v-model은 단순 Text input 뿐만 아니라 Checkbox, Radio, Select 등 다양한 타입의 사용자 입력 방식과 함께 사용 가능
+ 
+ - Checkbox 활용 (70p ~ 72p)
+ - Select 활용 (73p ~ 74p)
+  - select에서 v-model 표현식의 초기 값이 어떤 option과도 일치하지 않는 경우 select 요소는 "선택되지 않은" 상태로 렌더링됨
