@@ -1,0 +1,19 @@
+<Event Handling>
+ - v-on
+  - DOM 요소에 이벤트 리스너를 연결 및 수신
+
+  - 구성
+   - handler 종류
+    1. Inline handlers: 이벤트가 트리거될 때 실행 될 JavaScript 코드 (49p ~ 51p, 실습코드 05)
+     - 주로 간단한 상황에 사용 (권장되는 방식 X)
+     - '$' 접두어 사용하면 global 변수를 사용가능 - 참고자료에서 다룬다고 함
+       ```
+       <button @click="warning('경고입니다', $event)">Submit</button>
+       ``` 
+       *) $event의 위치는 상관 없음 
+
+    2. Method handlers: 컴포넌트에 정의된 메서드 이름 (52p ~ 53p, 실습코드 05)
+     - v-on shorthand (약어)
+     - '@'
+
+  

@@ -1,0 +1,34 @@
+<Dynamically Data Binding>
+ - v-bind
+  - 하나 이상의 속성 또는 컴포넌트 데이터를 표현식에 동적으로 바인딩
+  - 사용처 
+   1. Attribute Bindings (속성)
+    - 속성 바인딩
+     ``` (실습코드 02 예시보기)
+     <img v-bind:src="imageSrc">
+     <a v-bind:href="myUrl">Move to url</a>
+
+     // 줄여서 사용도 가능 (':(콜론)'만 쓰면됨)
+     <img :src="imageSrc">
+     <a :href="myUrl">Move to url</a>
+     ```
+    
+    - 동적 인자 이름
+     - 대괄호([])로 감싸서 directive argument에 JavaScript 표현식을 사용할 수 있음
+     - 표현식에 따라 동적으로 평가된 값이 최종 argument 값으로 사용됨
+     - !!! 대괄호 안에 작성하는 이름은 반드시 '소문자'(카멜케이스X)로만 구성 가능 !!!
+       (브라우저가 속성 이름을 소문자로 강제 변환하기 때문)
+
+
+   2. Class and Style Bindings (클래스와 스타일 바인딩)
+    - class와 style은 모두 HTML 속성이므로 다른 속성과 마찬가지로 v-bind를 사용하여 동적으로 문자열 값을 할당할 수 있음
+    - Vue는 class 및 style 속성 값을 v-bind로 사용할 때 '객체' 또는 '배열'을 활용하여 작성할 수 있도록 함
+      -> 단순히 문자열 연결을 사용하여 이런 값을 생성하는 것은 번거롭고 오류가 발생하기 쉽기 때문
+
+    1. Binding HTML Classes (33p ~ 37p, 실습코드 03)
+     1.1 Binding to Objects
+     1.2 Binding to Arrays
+
+    2. Binding Inline Styles (38p ~ 41p, 실습코드 04)
+     2.1 Binding to Objects
+     2.2 Binding to Arrays
