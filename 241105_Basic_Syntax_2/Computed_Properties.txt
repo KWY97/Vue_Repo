@@ -5,3 +5,63 @@ computed()
  => 미리 계산된 속성을 사용하여 템플릿에서 표현식을 단순하게 하고 불필요한 반복 연산을 줄임
 
  예시: 교재 7p ~ 8p
+
+ - 특징
+  - 반환되는 값은 computed ref이며 일반 refs와 유사하게 계산된 결과를
+    .value로 참조할 수 있음 (템플릿에서는 .value 생략 가능)
+  - computed 속성은 ! 의존된 ! 반응형 데이터를 자동으로 추적
+  - 의존하는 데이터가 변경될 때만 재평가
+   - restOfTodos의 계산은 todos에 의존하고 있음
+   - 따라서 todos가 변경될 때만 restOfTodos가 업데이트됨
+
+
+Computed vs Methods
+ - computed 속성 대신 method로도 동일한 기능을 정의할 수 있음 (11p)
+
+ - 차이
+  - computed 속성은 의존된 반응형 데이터를 기반으로 캐시됨 (밑에서 캐시 다룸)
+  - 의존하는 데이터가 변경된 경우에만 재평가됨
+  - 즉, 의존된 반응형 데이터가 변경되지 않는 한 이미 계산된 결과에 대한 여러 참조는 다시
+    평가할 필요 없이 이전에 계산된 결과를 즉시 반환
+
+  => 반면, method 호출은 다시 렌더링이 발생할 때마다 항상 함수를 실행
+
+  ```
+        // computed
+        const restOfTodos = computed(() => {
+          return todos.value.length > 0 ? '아직 남았다' : '퇴근!'
+        })
+        // console.log(restOfTodos.value)
+
+        // methods
+        const getRestOftodos = function () {
+          return todos.value.length > 0 ? '아직 남았다' : '퇴근!'
+        }
+
+        // 실행되는 방식이 다름 (computed는 그냥 값이고, methods는 호출을 해야함)
+        <p>{{ restOfTodos }}</p> // computed
+        <p>{{ getRestOftodos() }}</p> // methods
+   ```
+
+
+캐시(Cache)
+ - 데이터나 결과를 일시적으로 저장해두는 임시 저장소
+ - 이후에 같은 데이터나 결과를 다시 계산하지 않고 빠르게 접근할 수 있도록함
+
+ 예시: 교재 14p
+
+
+computed와 method의 적절한 사용처
+ computed
+  - 의존하는 데이터에 따라 결과가 바뀌는 계산된 속성을 만들 때 유용
+  - 동일한 의존성을 가진 여러 곳에서 사용할 때 계산 결과를 캐싱하여 중복 계산 방지
+  - ! 의존된 데이터가 변경되면 자동으로 업데이트 !
+  - ! 읽기 전용 속성 ! => 계산된 결과(값)를 우리는 읽기만 하는 것
+    (잘못쓰면 경고뜸. 실습코드 01 - computed 주의사항 예시)
+
+ method
+  - 단순히 특정 동작을 수행하는 함수를 정의할 때 사용
+  - 데이터에 의존하는지 여부와 관계없이 항상 동일한 결과를 반환하는 함수
+  - ! 호출해야만 실행됨 !
+
+ => 무조건 computed만 사용하는 것이 아니라 ! 사용 목적과 상황에 맞게 ! 적절히 조합해서 사용

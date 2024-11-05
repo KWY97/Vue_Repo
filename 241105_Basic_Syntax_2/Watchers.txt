@@ -1,0 +1,52 @@
+<Watchers>
+
+watch()
+ - 하나 이상의 반응형 데이터를 감시하고, 감시하는 데이터가 변경되면 콜백 함수를 호출
+
+ - 구조
+  ```
+  watch(source, (newValue, oldValue) => {
+     // do something
+   })
+  ```
+  
+  첫번째 인자 (source) 
+   - watch가 감시하는 대상 (반응형 변수, 값을 반환하는 함수 등)
+
+  두번째 인자 (callback function)
+   - source가 변경될 때 호출되는 콜백 함수
+    1. newValue (필수)
+     - 감시하는 대상이 변화된 값 
+
+    2. oldValue (optional, 선택인자) 
+     - 감시하는 대상의 기존 값
+
+ - 기본동작 및 예시(교재 56p ~ 58p, 실습코드 06)
+
+ - 참고) 여러 source를 감시하는 watch
+  - 배열을 활용하여 여러 대상을 감시할 수 있음
+  ```
+  watch([foo, bar], ([newFoo, newBar], [preFoo, preBar]) => {
+    // do something
+  })
+
+
+!!! Computed와 Watchers !!! - 역할 잘 기억하기
+
+공통점 
+데이터의 변화를 감지하고 처리 
+
+동작
+Computed: 의존하는 데이터 속성의 계산된 값을 !! 반환 !! 
+Watchers: 특정 데이터 속성의 변화를 감시하고 !! 작업을 수행 !! (side-effects) 
+
+사용 목적
+Computed: 계산한 값을 캐싱하여 재사용
+          중복 계산 방지
+Watchers: 데이터 변화에 따른 특정 작업을 수행
+
+사용 예시
+Computed: 연산 된 길이, 필터링 된 목록 계산 등
+Watchers: DOM 변경, 다른 비동기 작업 수행, 외부 API와 연동 등
+
+*) computed와 watch 모두 의존(감시)하는 원본 데이터를 직접 변경하지 않음
