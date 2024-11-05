@@ -30,7 +30,12 @@
     <form @submit.prevent="onSubmit">
       <input type="submit">
     </form>
-    <!-- <a @click.stop.prevent="onLink">onLink</a> -->
+
+    <div v-on:click="detectBubble">
+      <a href="https://www.google.com/">onLink</a><br>
+      <a @click.prevent="onLink" href="https://www.google.com/">onLink</a><br>
+      <a @click.stop.prevent="onLink" href="https://www.google.com/">onLink</a>
+    </div>
 
     <!-- key modifiers -->
     <input @keyup.enter="onSubmit">
@@ -61,18 +66,24 @@
           console.log(name.value)
         }
         const onSubmit = function () {
-          console.log("onSubmit")
+          console.log('onSubmit')
         }
-        // const onLink = ref('https://www.google.com/')
+        const detectBubble = function () {
+          console.log('detectBubble')
+        }
+        const onLink = function () {
+          console.log('onLink')
+        }
         return {
           count,
-          greeting,
           increase,
+          greeting,
           warning,
           myFunc,
           onSubmit,
-          // onLink,
-      }
+          detectBubble,
+          onLink
+        }
       }
     })
 
