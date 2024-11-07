@@ -3,6 +3,9 @@
     <ParentChild 
       my-msg="message" 
       :dynamic-props="name"
+      @some-event="someCallback"
+      @emit-args="getNumbers"
+      @update-name="updateName"
     />
     <ParentItem
       v-for="item in items"
@@ -25,9 +28,25 @@ const items = ref([
     {id: 3, name: '딸기'}
 ])
 
+const someCallback = function () {
+  console.log("자식 컴포넌트에서 발신한 이벤트를 수신했어요.")
+}
+
+const getNumbers = function (...args) {
+  console.log(args)
+  console.log(`자식 컴포넌트로 부터 데이터 ${args}를 받았습니다.`)
+}
+
+const updateName = function () {
+  name.value = 'Bella'
+}
+
 </script>
 
 
 <style scoped>
 
 </style>
+
+
+

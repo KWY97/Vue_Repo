@@ -2,8 +2,14 @@
     <div>
         <p>{{ myMsg }}</p>
         <p>{{ dynamicProps }}</p>
-        <ParentGrandChild :my-msg="myMsg" />
+        <ParentGrandChild 
+          :my-msg="myMsg"
+          @update-name="updateName"  
+        />
     </div>
+    <!-- <button @click="$emit('someEvent')">클릭</button> -->
+    <button @click="buttonClick">클릭</button>
+    <button @click="emitArgs">추가 인자 전달</button>
 </template>
 
 
@@ -24,6 +30,21 @@ defineProps({
 // const props = defineProps({ myMsg: String })
 // console.log(props)
 // console.log(props.myMsg)
+
+// emit event 선언 (배열방식, 객체방식)
+const emit = defineEmits(['someEvent', 'emitArgs', 'updateName'])
+
+const buttonClick = function () {
+    emit('someEvent')
+}
+
+const emitArgs = function () {
+    emit('emitArgs', 1, 2, 3)
+}
+
+const updateName = function () {
+    emit('updateName')
+}
 
 </script>
 
