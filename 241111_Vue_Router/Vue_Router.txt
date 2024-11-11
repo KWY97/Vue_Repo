@@ -1,0 +1,161 @@
+<Vue Router>
+
+RouterLink
+ - 페이지를 다시 로드하지 않고 URL을 변경하여 URL 생성 및 관련 로직을 처리
+ - HTML의 <a> 태그를 렌더링
+
+RouterView
+ - RouterLink URL에 해당하는 컴포넌트를 표시
+ - 원하는 곳에 배치하여 컴포넌트를 레이아웃에 표시할 수 있음
+
+``` App.vue
+<template>
+  <header>
+    <img alt="Vue logo" class="logo" src="@/assets/logo.svg" width="125" height="125" />
+
+    <div class="wrapper">
+      <HelloWorld msg="You did it!" />
+
+      <nav>
+        <RouterLink to="/">Home</RouterLink>
+        <RouterLink to="/about">About</RouterLink>
+      </nav>
+    </div>
+  </header>
+
+  <RouterView />
+</template>
+```
+
+router/index.js
+ - 라우팅에 관련된 정보 및 설정이 작성 되는 곳
+ - router에 URL과 컴포넌트를 매핑
+
+views
+ - RouterView 위치에 렌터링할 컴포넌트를 배치
+ - 기존 components 폴더와 기능적으로 다른 것은 하나도 없으며, '단순 분류'의 의미로 구성됨
+ => 일반 컴포넌트와 구분하기 위해 컴포넌트 이름을 View로 끝나도록 작성하는 것을 권장.
+
+
+ <라우팅 기본>
+  1. index.js에 라우터 관련 설정 작성 (주소(필수), 이름(선택 사항), 컴포넌트(필수))
+     *) 이름도 써주는게 좋다. 아래에서 Named Routes하면서 보여준다고 함
+
+  ``` index.js
+  const router = createRouter({
+    history: createWebHistory(import.meta.env.BASE_URL),
+    routes: [
+      {
+        path: '/',
+        name: 'home',
+        component: HomeView,
+      },
+      ...
+    ]
+  })
+  ```
+  
+  2. RouterLink의 'to' 속성으로 index.js에서 정의한 주소 값(path)을 사용
+  3. RouterLink 클릭 시 경로와 일치하는 컴포넌트가 RouterView에서 렌더링됨
+  ``` App.vue
+  <template>
+    <header>
+      <img alt="Vue logo" class="logo" src="@/assets/logo.svg" width="125" height="125" />
+
+      <div class="wrapper">
+        <HelloWorld msg="You did it!" />
+
+        <nav>
+          <RouterLink to="/">Home</RouterLink>
+          <RouterLink to="/about">About</RouterLink>
+        </nav>
+      </div>
+    </header>
+
+    <RouterView />
+  </template>
+  ```
+  
+  - Named Routes
+   - name 속성 값에 경로에 대한 이름을 지정
+   - 경로에 연결하려면 RouterLink에 v-bind를 사용해 'to' props 객체로 전달
+    ```
+    <RouterLink :to="{ name: 'home' }">Home</RouterLink>
+    <RouterLink :to="{ name: 'about' }">About</RouterLink>
+    ```
+
+   - 매개변수를 사용한 동적 경로 매칭
+   ``` index.js
+   {
+     path: '/user/:id',
+     name: 'user',
+     component: UserView
+   },
+   ```
+
+   ``` App.vue
+   <RouterLink :to="{ name: 'user', params: { id: userId} }">User</RouterLink>
+   ```
+
+  - 경로가 일치하면 라우트의 매개변수는 컴포넌트에서 $route.params로 참조 가능
+
+   ``` UserView.vue
+   <template>
+    <div>
+      <h1>UserView</h1>
+      <h2>{{ $route.params.id }}번 유저 프로필 페이지</h2>
+      <h2>{{ userId }}번 유저 프로필 페이지</h2>
+    </div>
+   </template>
+
+   <script setup>
+     import { useRoute } from 'vue-router'
+     import { ref } from 'vue'
+
+    const route = useRoute()
+    const userId = ref(route.params.id)
+   </script>
+  ```
+
+ <중첩된 라우팅> (41p ~ 50p)
+  - children 옵션은 배열 형태로 필요한 만큼 중첩 관계를 표현할 수 있음
+  - children 옵션의 주소에는 젤 앞에 '/' 안씀 (children 옵션의 주소는 path 뒤에 붙는 주소라고 생각하면됨)
+  - component는 components 폴더에 작성
+
+
+  ``` index.js
+  {
+    path: '/user/:id',
+    // name: 'user',
+    component: UserView,
+    children: [
+      { path: '', name: 'user', component: UserProfile}, // 첫 페이지에 띄울 것
+      { path: 'profile', name: 'user-profile', component: UserProfile},
+      { path: 'posts', name: 'user-posts', component: UserPost}
+    ]
+  }
+  ```
+
+  - ! 컴포넌트 간 부모-자식 관계 관점이 아닌 URL 에서의 중첩된 관계를 표현하는 관점으로 바라보기 !
+
+
+<Programmatic Navigation>
+ - RouterLink 대신 JavaScript를 사용해 페이지를 이동하는 것
+ - 프로그래밍 방식 네비게이션
+  - 프로그래밍으로 URL 이동하기
+  - router의 인스턴스 메서드를 사용해 RouterLink로 <a> 태그를 만드는 것처럼 프로그래밍으로
+    네비게이션 관련 작업을 수행할 수 있음
+
+ - router의 메서드
+  1. 다른 위치로 이동하기
+   - 다른 URL로 이동하는 메서드
+   - history stack에 push하므로 뒤로가기 가능
+
+   - router.push()
+   
+
+  2. 현재 위치 바꾸기
+   - 다른 URL로 이동하는 메서드
+   - 뒤로가기 불가능
+   
+   - router.replace()

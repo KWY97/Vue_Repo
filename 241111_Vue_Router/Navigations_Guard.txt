@@ -1,0 +1,3 @@
+<Navigation Guard>
+ - Vue router를 통해 특정 URL에 접근할 때 다른 URL로 redirect를 하거나 취소하여 내비게이션을 보호
+ => 라우트 전환 전/후 자동으로 실행되는 Hook
