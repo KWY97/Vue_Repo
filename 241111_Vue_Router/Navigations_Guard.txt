@@ -1,3 +1,47 @@
 <Navigation Guard>
  - Vue router를 통해 특정 URL에 접근할 때 다른 URL로 redirect를 하거나 취소하여 내비게이션을 보호
  => 라우트 전환 전/후 자동으로 실행되는 Hook
+
+ 1. Globally (전역 가드) (69p ~ 78p)
+  - 애플리케이션 전역에서 모든 라우트 전환에 적용되는 가드
+  - 작성위치: index.js
+
+  - router.beforEach()
+   - 다른 URL로 이동하기 직전에 실행되는 함수
+   - return이 없으면 자동으로 'to'로 감
+
+
+ 2. Per-route (라우터 가드) (80p ~ 88p)
+  - 특정 라우터에서만 동작하는 가드
+  - 작성위치: index.js의 각 routes
+ 
+  - beforEnter()
+   - 특정 route에 진입했을 때만 실행되는 함수
+   -> 단순히 URL의 매개변수나 쿼리 값이 변경될 때는 실행되지 않고, 다른 URL에서 탐색해 올 때만 실행됨
+
+
+ 3. In-component (컴포넌트 가드) (90p ~ 95p)
+  - 특정 컴포넌트 내에서만 동작하는 가드
+  - 작성위치: 각 컴포넌트의 <script> 내부
+
+  - onBeforeRouteLeave()
+   - 현재 라우트에서 다른 라우트로 이동하기 전에 실행
+   -> 사용자가 현재 페이지를 떠나는 동작에 대한 로직을 처리
+
+  - onBeforeRouteUpdate()
+   - 이미 렌덜이된 컴포넌트가 같은 라우트 내에서 업데이트되기 전에 실행
+   -> 라우트 업데이트 시 추가적인 로직을 처리
+
+
+- 정리 -
+1. Globally (전역가드)
+ - 애플리케이션 전역에서 동작
+ - 작성위치: index.js
+
+2. Per-route (라우터 가드)
+ - 특정 route에서만 동작
+ - 작성위치: index.js의 각 routes
+
+3. In-component (컴포넌트 가드)
+ - 특정 넘포넌트 내에서만 동작
+ - 작성위치: 각 컴포넌트의 script
