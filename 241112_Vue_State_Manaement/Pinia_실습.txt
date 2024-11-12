@@ -1,0 +1,45 @@
+<Pinia 실습> (38p ~ 79p)
+- Todo CRUD 구현
+- Todo 개수 계산
+ - 완료된 Todo 개수
+
+- online 폴더에 구현
+
+- Local Storage
+
+ !!! DRF에서 인증 키 받을 때 Local Storage에 인증 키 박아 놓으면 아주 유용하게 쓸 수 있다. !!!
+
+ - 브라우저 내에 key-value 쌍을 저장하는 웹 스토리지 객체
+
+ - 특징
+  - 페이지를 새로고침하고 브라우저를 다시 실행해도 데이터가 유지
+  - 쿠키와 다르게 네트워크 요청 시 서버로 전송되지 않음
+  - 여러 탭이나 창 간에 데이터를 공유할 수 있음
+
+ - 사용 목적
+  - 웹 애플리케이션에서 사용자 설정, 상태 정보, 캐시 데이터 등을
+    클라이언트 측에서 보관하여 웹사이트의 성능을 향상 시키고
+    사용자 경험을 개선하기 위함
+
+  (바닐라 JS 등 Local Storage를 사용하는 방법은 여러가지가 있는데 우리는 plugin 사용한다.)
+
+ - pinia-plugin-persistedstate
+  - Pinia 플러그인 중 하나
+  - 웹 애플리케이션의 상태(state)를 브라우저의 local storage나
+    session storage에 영구적으로 저장하고 복원하는 기능을 제공
+
+  ```
+  import { createApp } from 'vue'
+  import { createPinia } from 'pinia'
+  import piniaPluginPersistedstate from 'pinia-plugin-persistedstate'
+  import App from './App.vue'
+
+  const app = createApp(App)
+  const pinia = createPinia()
+  pinia.use(piniaPluginPersistedstate)
+
+  // app.use(createPinia())
+  app.use(pinia)
+
+  app.mount('#app')
+  ```
