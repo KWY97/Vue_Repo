@@ -1,0 +1,9 @@
+<Pnia>
+ - Vue의 공식 상태 관리 라이브러리
+
+ - 구성 요소
+  1. store
+  2. state
+  3. getters
+  4. actions
+  5. plugin
