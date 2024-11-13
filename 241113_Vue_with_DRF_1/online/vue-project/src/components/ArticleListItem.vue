@@ -6,7 +6,7 @@
     <RouterLink
       :to="{ name: 'DetailView', params: { id: article.id } }"
     >
-      Detail
+      [DETAIL]
     </RouterLink>
     <hr>
   </div>
