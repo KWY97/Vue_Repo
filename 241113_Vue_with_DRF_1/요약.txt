@@ -1,0 +1,36 @@
+<Vue와 DRF 간 기본적인 요청과 응답> 
+-> 다음 시간에 Vue와 DRF에서의 인증 시스템
+
+오늘 내일은 이론 읽기보다
+강의자료 + 실습 파일 잘 보면 도움 될 듯.
+
+*) Same origin은 URL의 Protocol, Host, Port가 모두 같아야함
+   기본적으로 웹 브라우저는 Same origin에서만 요청하는 것을 허용.
+
+   Origin(출처): 프로토콜, 호스트, 포트
+
+   예시
+    - 기준: http://localhost:3000/articles/3
+
+    http://localhost:3000/articles/3/ (성공, path만 다름)
+    https://localhost:3000/articles/3/ (실패, Protocol 다름)
+    http://localhost:80/articles/3/ (실패, Port 다름)
+    http://yahuua:3000/articles/3/ (실패, Host 다름)
+
+
+   하지만 현대 웹 애플리케이션은 다양한 출처로부터 리소스 요청하는 경우 많음
+   => CORS 정책이 필요 (교차 출처 리소스 공유)
+
+ - CORS Policy
+  - 다른 출처에서 온 리소스를 공유하는 것에 대한 정책
+  - !! 서버에서 !! 설정되며, 브라우저가 해당 정책을 확인하여 요청이 허용되는지 여부를 결정
+
+  => 다른 출처의 리소스를 불러오려면 그 다른 출처에서 올바른 !! CORS header !!를 포함한 응답을 반환해야 함
+
+ - CORS Policy 정리
+  - 다른 도메인(주소)에 있는 리소스에 안전하게 접근할 수 있도록 허용 또는 차단하는 보안 메커니즘
+  - 서버가 약속된 CORS Header를 포함하여 응답한다면 브라우전느 해당 요청을 허용
+  => 서버에서 CORS Header를 만들어야 한다
+
+  - django-cors-headers 라이브러리 활용
+  사용법: 교재 67p ~ 69p
