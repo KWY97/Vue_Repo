@@ -1,8 +1,11 @@
 import { ref, computed } from 'vue'
 import { defineStore } from 'pinia'
+import { useRouter } from 'vue-router'
 import axios from 'axios'
 
+
 export const useCounterStore = defineStore('counter', () => {
+  const router = useRouter()
   const articles = ref([])
   const API_URL = 'http://127.0.0.1:8000'
   const token = ref(null)
@@ -53,8 +56,8 @@ export const useCounterStore = defineStore('counter', () => {
       }
     })
       .then((res) => {
-        console.log(res)
-        console.log('회원가입 성공')
+        const password = password1
+        logIn({ username, password })
       })
       .catch((err) => {
         console.log(err)
@@ -83,6 +86,7 @@ export const useCounterStore = defineStore('counter', () => {
         token.value = res.data.key
         // console.log(res.data)
         // console.log('로그인 성공')
+        router.push({ name: 'ArticleView' })
       })
       .catch((err) => {
         console.log(err)
