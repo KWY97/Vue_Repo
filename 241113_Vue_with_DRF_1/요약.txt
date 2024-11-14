@@ -11,8 +11,9 @@
 
    예시
     - 기준: http://localhost:3000/articles/3
-
-    http://localhost:3000/articles/3/ (성공, path만 다름)
+ 
+    http://localhost:3000/articles/ (성공, path만 다름)
+    http://localhost:3000/comments/3/ (성공, path만 다름)
     https://localhost:3000/articles/3/ (실패, Protocol 다름)
     http://localhost:80/articles/3/ (실패, Port 다름)
     http://yahuua:3000/articles/3/ (실패, Host 다름)
